@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "reimbursements")
 @NoArgsConstructor
@@ -17,10 +19,10 @@ public class Reimbursement {
     private double amount;
 
     @Column
-    private String timeSubmitted;
+    private LocalDate timeSubmitted;
 
     @Column
-    private String timeResolved;
+    private LocalDate timeResolved;
 
     @Column
     private String description;
