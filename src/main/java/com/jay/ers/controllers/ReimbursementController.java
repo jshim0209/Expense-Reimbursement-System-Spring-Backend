@@ -52,4 +52,11 @@ public class ReimbursementController {
                                              @RequestBody ReimbursementRequestDto reimbursementRequestDto) {
         return reimbursementService.addReimbursement(userId, reimbursementRequestDto);
     }
+
+    @PatchMapping("/{reimbursementId}/status/{statusId}/resolver/{resolverId}")
+    public ReimbursementDto updateReimbursementStatus(@PathVariable Long reimbursementId,
+                                                      @PathVariable Long statusId,
+                                                      @PathVariable Long resolverId) {
+        return reimbursementService.updateReimbursementStatus(reimbursementId, statusId, resolverId);
+    }
 }

@@ -25,4 +25,6 @@ public interface ReimbursementService {
     List<ReimbursementDto> getAllReimbursementsForUserByType(Long userId, Optional<Long> typeId);
 
     List<ReimbursementDto> getAllReimbursementsForUserByStatusAndType(Long userId, Optional<Long> statusId, Optional<Long> typeId);
+
+    ReimbursementDto updateReimbursementStatus(Long reimbursementId, Long statusId, Long resolverId);
 }

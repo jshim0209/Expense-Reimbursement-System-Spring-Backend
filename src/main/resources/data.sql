@@ -18,10 +18,10 @@ VALUES ('Pending'),
 
 INSERT INTO reimbursements (amount, description, receipt, time_resolved, time_submitted, author_id, resolver_id, status_id, type_id)
 VALUES
-(1700.98, 'Relocation Assistance', 'assets/images/receipts/receipt1.jpg', null, '2023-04-24', 2, null, 1, 4),
-(234.98, 'Hotel in New York', 'assets/images/receipts/receipt1.jpg', '2023-05-04', '2023-04-04', 5, 1, 2, 1),
-(145.98, 'Certification', 'assets/images/receipts/receipt1.jpg', '2023-05-04', '2023-04-04', 2, 4, 2, 4),
-(136.98, 'Train ticket to DC', 'assets/images/receipts/receipt1.jpg', null, '2023-04-24', 3, null, 1, 2),
-(654.98, 'Dinner with clients', 'assets/images/receipts/receipt1.jpg', '2023-05-04', '2023-04-04', 5, 1, 2, 3),
-(43.98, 'Lunch Money', 'assets/images/receipts/receipt1.jpg', '2023-05-04', '2023-04-04', 3, 4, 3, 3),
-(56.98, 'Programming books', 'assets/images/receipts/receipt1.jpg', null, '2023-04-24', 2, null, 1, 4);
+(1700.98, 'Relocation Assistance', 'https://img.freepik.com/free-vector/realistic-receipt-template_23-2147938550.jpg?w=360', null, '2023-04-24', 2, null, 1, 4),
+(234.98, 'Hotel in New York', 'https://c8.alamy.com/comp/CNTYDX/tesco-shopping-receipt-CNTYDX.jpg', '2023-05-04', '2023-04-04', 5, 1, 2, 1),
+(145.98, 'Certification', 'https://t3.ftcdn.net/jpg/01/82/01/18/360_F_182011806_mxcDzt9ckBYbGpxAne8o73DbyDHpXOe9.jpg', '2023-05-04', '2023-04-04', 2, 4, 2, 4),
+(136.98, 'Train ticket to DC', 'https://www.shutterstock.com/image-vector/realistic-paper-shop-receipt-barcode-260nw-768909406.jpg', null, '2023-04-24', 3, null, 1, 2),
+(654.98, 'Dinner with clients', 'https://cdn3.vectorstock.com/i/1000x1000/65/32/paper-cash-sell-receipt-vector-23876532.jpg', '2023-05-04', '2023-04-04', 5, 1, 2, 3),
+(43.98, 'Lunch Money', 'https://media-cdn.tripadvisor.com/media/photo-s/0e/54/47/43/receipt.jpg', '2023-05-04', '2023-04-04', 3, 4, 3, 3),
+(56.98, 'Programming books', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Target_Receipt_5-12-2018.jpg/1200px-Target_Receipt_5-12-2018.jpg', null, '2023-04-24', 2, null, 1, 4);

@@ -3,7 +3,7 @@ package com.jay.ers.controllers.advice;
 import com.jay.ers.dtos.ErrorDto;
 import com.jay.ers.exceptions.BadRequestException;
 import com.jay.ers.exceptions.NotAuthorizedException;
-import com.jay.ers.exceptions.UserNotExistException;
+import com.jay.ers.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,9 +21,9 @@ public class ErsControllerAdvice {
         return new ErrorDto(badRequestException.getMessage());
     }
 
-    @ExceptionHandler(UserNotExistException.class)
+    @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorDto handleNotFoundException(UserNotExistException notFoundException) {
+    public ErrorDto handleNotFoundException(NotFoundException notFoundException) {
         return new ErrorDto(notFoundException.getMessage());
     }
 

@@ -5,9 +5,12 @@ import com.jay.ers.dtos.ReimbursementRequestDto;
 import com.jay.ers.entities.Reimbursement;
 import com.jay.ers.entities.Status;
 import com.jay.ers.entities.Type;
+import com.jay.ers.entities.User;
+import com.jay.ers.exceptions.NotFoundException;
 import com.jay.ers.mappers.ReimbursementMapper;
 import com.jay.ers.repositories.ReimbursementRepository;
 import com.jay.ers.services.ReimbursementService;
+import com.jay.ers.services.StatusService;
 import com.jay.ers.services.TypeService;
 import com.jay.ers.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,16 @@ public class ReimbursementServiceImpl implements ReimbursementService {
     private final ReimbursementMapper reimbursementMapper;
     private final UserService userService;
     private final TypeService typeService;
+    private final StatusService statusService;
+
+    private Reimbursement findReimbursement(Long reimbursementId) {
+        Optional<Reimbursement> reimbursement = reimbursementRepository.findById(reimbursementId);
+
+        if (reimbursement.isEmpty()) {
+            throw new NotFoundException("Reimbursement with the id of " + reimbursementId + " does not exist.");
+        }
+        return reimbursement.get();
+    }
     @Override
     public List<ReimbursementDto> getAllReimbursementsByStatus(Optional<Long> statusId) {
         List<Reimbursement> reimbursements = reimbursementRepository.findAllByStatusId(statusId);
@@ -50,17 +63,10 @@ public class ReimbursementServiceImpl implements ReimbursementService {
 
     @Override
     public ReimbursementDto addReimbursement(Long userId, ReimbursementRequestDto reimbursementRequestDto) {
-        Reimbursement reimbursement = new Reimbursement();
-
-        Status defaultStatus = new Status(1L, "Pending");
-        Type type = typeService.findType(reimbursementRequestDto.getType());
-
-        reimbursement.setAmount(reimbursementRequestDto.getAmount());
-        reimbursement.setReceipt(reimbursementRequestDto.getReceipt());
-        reimbursement.setDescription(reimbursementRequestDto.getDescription());
+        Status defaultStatus = statusService.getStatusByStatus("Pending");
+        Reimbursement reimbursement = reimbursementMapper.dtoToEntity(reimbursementRequestDto);
         reimbursement.setAuthor(userService.getUserById(userId));
         reimbursement.setTimeSubmitted(LocalDate.now());
-        reimbursement.setType(type);
         reimbursement.setStatus(defaultStatus);
 
         return reimbursementMapper.entityToDto(reimbursementRepository.saveAndFlush(reimbursement));
@@ -88,6 +94,17 @@ public class ReimbursementServiceImpl implements ReimbursementService {
     public List<ReimbursementDto> getAllReimbursementsForUserByStatusAndType(Long userId, Optional<Long> statusId, Optional<Long> typeId) {
         List<Reimbursement> reimbursements = reimbursementRepository.findAllByAuthorIdAndStatusIdAndTypeId(userId, statusId, typeId);
         return reimbursementMapper.entitiesToDtos(reimbursements);
+    }
+
+    @Override
+    public ReimbursementDto updateReimbursementStatus(Long reimbursementId, Long statusId, Long resolverId) {
+        Reimbursement reimbursement = findReimbursement(reimbursementId);
+        User resolver = userService.getUserById(resolverId);
+        Status newStatus = statusService.findStatus(statusId);
+        reimbursement.setStatus(newStatus);
+        reimbursement.setResolver(resolver);
+        reimbursement.setTimeResolved(LocalDate.now());
+        return reimbursementMapper.entityToDto(reimbursementRepository.saveAndFlush(reimbursement));
     }
 
 
